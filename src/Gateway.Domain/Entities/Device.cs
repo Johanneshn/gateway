@@ -1,0 +1,30 @@
+﻿using Gateway.Domain.ValueObjects;
+
+namespace Gateway.Domain.Entities;
+
+public class Device : EntityBase<DeviceId>
+{
+    private readonly Dictionary<string, string> _configuration = new();
+
+    private Device(DeviceId id)
+    {
+        Id = id;
+    }
+
+    private Device()
+    {
+    }
+
+    public IReadOnlyDictionary<string, string> Config => _configuration;
+
+    public void SetConfig(IDictionary<string, string> config)
+    {
+        _configuration.Clear();
+        foreach (var kvp in config) _configuration[kvp.Key] = kvp.Value;
+    }
+
+    public static Device Create(DeviceId id)
+    {
+        return new Device(id);
+    }
+}
