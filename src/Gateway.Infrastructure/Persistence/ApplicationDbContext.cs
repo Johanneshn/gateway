@@ -1,4 +1,5 @@
 using Gateway.Domain.Entities;
+using Gateway.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gateway.Infrastructure.Persistence;

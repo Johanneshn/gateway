@@ -2,6 +2,8 @@ using Gateway.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+namespace Gateway.Infrastructure.Persistence.Configurations;
+
 public class DeviceDataPointConfiguration : IEntityTypeConfiguration<DeviceDataPoint>
 {
     public void Configure(EntityTypeBuilder<DeviceDataPoint> entity)
