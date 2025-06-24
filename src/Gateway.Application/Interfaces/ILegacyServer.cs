@@ -6,6 +6,6 @@ namespace Gateway.Application.Interfaces;
 public interface ILegacyServer
 {
     ChannelReader<DeviceDataPoint> DataPoints { get; }
-    Task StartAsync(CancellationToken cancellationToken = default);
-    Task StopAsync(CancellationToken cancellationToken = default);
+    Task StartAsync(CancellationToken cancellationToken);
+    Task StopAsync(CancellationToken cancellationToken);
 }

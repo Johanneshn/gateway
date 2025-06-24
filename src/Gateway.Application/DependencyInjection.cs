@@ -1,7 +1,6 @@
-using Gateway.Application.Common;
-using Gateway.Application.Feature.Devices.SaveDataPoint;
-using Gateway.Application.Feature.Devices.SetConfiguration;
-using Gateway.Application.Feature.LegacyServer;
+using Gateway.Application.Features.Devices.SaveDataPoint;
+using Gateway.Application.Features.Devices.SetConfiguration;
+using Gateway.Application.Features.LegacyServer;
 using Gateway.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,9 +18,8 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         // Register application services
-        // TODO: register with reflection
-        services.AddScoped<ICommandHandler<SaveDataPointCommand, Result>, SaveDataPointHandler>();
-        services.AddScoped<ICommandHandler<SetConfigurationCommand, Result>, SetConfigurationHandler>();
+        services.AddScoped<SaveDataPointHandler>();
+        services.AddScoped<SetConfigurationHandler>();
 
         // Register background services
         services.AddHostedService<LegacyServerBackgroundService>();

@@ -1,12 +1,9 @@
 using Gateway.Application.Common;
 using Gateway.Domain.Interfaces;
-using Gateway.Domain.ValueObjects;
 
-namespace Gateway.Application.Feature.Devices.SetConfiguration;
+namespace Gateway.Application.Features.Devices.SetConfiguration;
 
-public record SetConfigurationCommand(DeviceId DeviceId, Dictionary<string, string> Configuration);
-
-public class SetConfigurationHandler(IUnitOfWork unitOfWork) : ICommandHandler<SetConfigurationCommand, Result>
+public class SetConfigurationHandler(IUnitOfWork unitOfWork)
 {
     public async Task<Result> HandleAsync(SetConfigurationCommand command,
         CancellationToken cancellationToken = default)

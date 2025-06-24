@@ -1,10 +1,9 @@
-using Gateway.Application.Common;
-using Gateway.Application.Feature.Devices.SaveDataPoint;
+using Gateway.Application.Features.Devices.SaveDataPoint;
 using Gateway.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Gateway.Application.Feature.LegacyServer;
+namespace Gateway.Application.Features.LegacyServer;
 
 public class LegacyServerBackgroundService(ILegacyServer server, IServiceProvider serviceProvider)
     : BackgroundService
@@ -15,8 +14,7 @@ public class LegacyServerBackgroundService(ILegacyServer server, IServiceProvide
         await foreach (var dataPoint in server.DataPoints.ReadAllAsync(stoppingToken))
         {
             using var scope = serviceProvider.CreateScope();
-            var saveDataPointHandler =
-                scope.ServiceProvider.GetRequiredService<ICommandHandler<SaveDataPointCommand, Result>>();
+            var saveDataPointHandler = scope.ServiceProvider.GetRequiredService<SaveDataPointHandler>();
             await saveDataPointHandler.HandleAsync(new SaveDataPointCommand(dataPoint), stoppingToken);
         }
     }
