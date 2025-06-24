@@ -1,3 +1,4 @@
+using Gateway.Application.Features.Devices.GetAllDevices;
 using Gateway.Application.Features.Devices.SaveDataPoint;
 using Gateway.Application.Features.Devices.SetConfiguration;
 using Gateway.Application.Features.LegacyServer;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         // Register application services
         services.AddScoped<SaveDataPointHandler>();
         services.AddScoped<SetConfigurationHandler>();
+        services.AddScoped<GetAllDevicesHandler>();
 
         // Register background services
         services.AddHostedService<LegacyServerBackgroundService>();

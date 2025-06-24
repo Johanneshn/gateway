@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gateway.Infrastructure.Persistence;
 
-public class Repository<T, TId> : IRepository<T, TId>
+public class Repository<T, TId>(ApplicationDbContext context) : IRepository<T, TId>
     where T : EntityBase<TId>
     where TId : notnull
 {
-    private readonly DbSet<T> _dbSet;
-
-    public Repository(ApplicationDbContext context)
-    {
-        _dbSet = context.Set<T>();
-    }
+    private readonly DbSet<T> _dbSet = context.Set<T>();
 
     public async Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
     {
         return await _dbSet.FindAsync([id], cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
