@@ -1,7 +1,5 @@
 using Gateway.Application.Interfaces;
-using Gateway.Domain.Entities;
 using Gateway.Domain.Interfaces;
-using Gateway.Domain.ValueObjects;
 using Gateway.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +15,10 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IReadOnlyRepository<,>), typeof(Repository<,>));
-        
+
         services.AddSingleton<ILegacyServer, LegacyServer.LegacyServer>();
 
-        
+
         return services;
     }
 }

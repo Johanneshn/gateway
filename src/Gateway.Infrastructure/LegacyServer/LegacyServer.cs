@@ -10,9 +10,9 @@ public class LegacyServer : ILegacyServer
     // Simulate a list of device IDs for demonstration purposes
     private readonly List<DeviceId> _deviceIds =
     [
-        new(Guid.NewGuid()),
-        new(Guid.NewGuid()),
-        new(Guid.NewGuid())
+        new(Guid.Parse("6e09e465-d2a1-45c7-b7f0-515fcfb914ad")),
+        new(Guid.Parse("3bb36463-57e7-4e7b-b3b9-545149a12912")),
+        new(Guid.Parse("66f384c5-7ffd-47f1-8b17-543f498114b4"))
     ];
 
     private CancellationTokenSource? _cts;

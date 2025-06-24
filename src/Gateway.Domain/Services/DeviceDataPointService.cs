@@ -14,6 +14,7 @@ public class DeviceDataPointService(IUnitOfWork unitOfWork)
             await unitOfWork.Devices.AddAsync(device);
         }
 
+        device.UpdateDataPointStats(dataPoint);
         await unitOfWork.DataPoints.AddAsync(dataPoint);
         await unitOfWork.SaveChangesAsync();
     }

@@ -20,6 +20,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
 app.UseHttpsRedirection();
 
 app.MapControllers();

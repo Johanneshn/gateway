@@ -16,4 +16,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.ApplyConfiguration(new DeviceConfiguration());
         modelBuilder.ApplyConfiguration(new DeviceDataPointConfiguration());
     }
+
+    public override int SaveChanges()
+    {
+        foreach (var entry in ChangeTracker.Entries<Device>())
+            if (entry.State == EntityState.Modified)
+                entry.Entity.UpdateLastModified();
+
+        return base.SaveChanges();
+    }
 }

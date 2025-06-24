@@ -6,7 +6,7 @@ public abstract class EntityBase<TKey> where TKey : notnull
     public DateTimeOffset Created { get; private set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset LastModified { get; private set; } = DateTimeOffset.UtcNow;
 
-    protected void UpdateLastModified()
+    public void UpdateLastModified()
     {
         LastModified = DateTimeOffset.UtcNow;
     }

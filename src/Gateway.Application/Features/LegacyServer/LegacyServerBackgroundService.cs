@@ -23,17 +23,12 @@ public class LegacyServerBackgroundService(
         {
             batch.Add(dataPoint);
 
-            if (batch.Count >= BatchSize)
-            {
-                await ProcessBatchAsync(batch, stoppingToken);
-                batch.Clear();
-            }
+            if (batch.Count < BatchSize) continue;
+            await ProcessBatchAsync(batch, stoppingToken);
+            batch.Clear();
         }
 
-        if (batch.Count > 0)
-        {
-            await ProcessBatchAsync(batch, stoppingToken);
-        }
+        if (batch.Count > 0) await ProcessBatchAsync(batch, stoppingToken);
     }
 
     // Only done to avoid creating a new scope for each data point
@@ -42,10 +37,7 @@ public class LegacyServerBackgroundService(
         using var scope = serviceProvider.CreateScope();
         var handler = scope.ServiceProvider.GetRequiredService<SaveDataPointHandler>();
 
-        foreach (var dataPoint in batch)
-        {
-            await handler.HandleAsync(new SaveDataPointCommand(dataPoint), stoppingToken);
-        }
+        foreach (var dataPoint in batch) await handler.HandleAsync(new SaveDataPointCommand(dataPoint), stoppingToken);
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)
